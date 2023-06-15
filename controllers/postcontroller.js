@@ -8,12 +8,10 @@ const getAllPost = async (req, res) => {
 };
 
 const getOnePost = async (req, res) => {
-	const { id } = req.params;
-	if (!mongoose.Types.ObjectId.isValid(id)) {
-		return res.status(404).json({ error: 'No such Blog post!' });
-	}
+	const { title } = req.params;
 
-	const post = await Post.findById(id).populate(
+	const regex = new RegExp(title, 'i');
+	const post = await Post.findOne({ title: regex }).populate(
 		'comments.postedBy',
 		'email'
 	);

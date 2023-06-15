@@ -14,7 +14,7 @@ const {
 const { auth: isAuthenticated, isAdmin } = require('../middleware/auth');
 
 router.get('/', getAllPost);
-router.get('/:id', getOnePost);
+router.get('/:title', getOnePost);
 router.post('/create', isAdmin, postSinglePost);
 router.patch('/update/:id', isAdmin, patchOnePost);
 router.delete('/delete/:id', isAdmin, deleteOnePost);
