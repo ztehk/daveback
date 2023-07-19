@@ -1,23 +1,15 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const PostSchema = new Schema(
+const AlbumSchema = new Schema(
 	{
 		title: {
 			type: String,
 			required: [true, 'title is required'],
 		},
-		intro: {
-			type: String,
-			required: [true, 'intro is required'],
-		},
 		body: {
 			type: String,
 			required: [true, 'body is required'],
-		},
-		conclusion: {
-			type: String,
-			required: true,
 		},
 		metaKey: {
 			type: String,
@@ -31,12 +23,26 @@ const PostSchema = new Schema(
 			type: String,
 			required: [true, 'author is required'],
 		},
+		audio: {
+			url: String,
+			public_id: String,
+		},
+		name: {
+			type: String,
+			required: [true, 'song name is required'],
+		},
+		categ: {
+			type: String,
+			required: [true, 'category is required'],
+		},
+		songOwner: {
+			type: String,
+			required: [true, 'Artist name is required'],
+		},
 		image: {
 			url: String,
 			public_id: String,
-			// required: [true, 'image is required'],
 		},
-		likes: [{ type: String }],
 		comments: [
 			{
 				text: {
@@ -55,6 +61,4 @@ const PostSchema = new Schema(
 	},
 	{ timestamps: true }
 );
-
-// const BlogPost = mongoose.model('Post')
-module.exports = mongoose.model('Post', PostSchema);
+module.exports = mongoose.model('Album', AlbumSchema);
