@@ -11,14 +11,15 @@ const loginUser = async (req, res) => {
 	try {
 		let user;
 		try {
-			user = await User.login(email, password);
+			const lowercaseEmail = email.toLowerCase();
+			user = await User.login(lowercaseEmail, password);
 		} catch (error) {
 			return res.status(400).json({ error: error.message });
 		}
 
 		const token = createToken(user._id);
 		return res.status(200).json({
-			email,
+			email: user.email,
 			token,
 			role: user.role,
 			id: user._id,
@@ -34,7 +35,14 @@ const signupUser = async (req, res) => {
 	try {
 		let user;
 		try {
-			user = await User.signup(email, password, username, role);
+			const lowercaseEmail = email.toLowerCase();
+
+			user = await User.signup(
+				lowercaseEmail,
+				password,
+				username,
+				role
+			);
 		} catch (error) {
 			return res.status(400).json({ error: error.message });
 		}
