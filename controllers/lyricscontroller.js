@@ -11,7 +11,7 @@ const getOneLyrics = async (req, res) => {
 	const { title } = req.params;
 
 	const regex = new RegExp(title, 'i');
-	const lyrics = await Lyric.findOne({ title: regex }).populate(
+	const lyrics = await Lyric.findOne({ slug: regex }).populate(
 		'comments.postedBy',
 		'email'
 	);
@@ -35,7 +35,9 @@ const postSingleLyrics = async (req, res) => {
 		songOwner,
 		categ,
 	} = req.body;
-	console.log(name, songOwner);
+	const name2 = name.replace(/ /g, '-');
+	const owner2 = songOwner.replace(/ /g, '-');
+	const slug = `${name2}-by-${owner2}-lyrics`;
 	try {
 		// console.log(title, body, intro, conclusion, author, image);
 
@@ -63,6 +65,7 @@ const postSingleLyrics = async (req, res) => {
 			author,
 			metaKey,
 			metaDescription,
+			slug,
 			name,
 			songOwner,
 			categ,

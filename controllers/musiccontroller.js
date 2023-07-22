@@ -9,9 +9,9 @@ const getAllMusic = async (req, res) => {
 
 const getOneMusic = async (req, res) => {
 	const { title } = req.params;
-
+	console.log(title);
 	const regex = new RegExp(title, 'i');
-	const music = await Music.findOne({ title: regex }).populate(
+	const music = await Music.findOne({ slug: regex }).populate(
 		'comments.postedBy',
 		'email'
 	);
@@ -36,7 +36,9 @@ const postSingleMusic = async (req, res) => {
 		songOwner,
 		categ,
 	} = req.body;
-
+	const name2 = name.replace(/ /g, '-');
+	const owner2 = songOwner.replace(/ /g, '-');
+	const slug = `download-${name2}-by-${owner2}-mp3`;
 	try {
 		let uploadedAudio;
 		let photo;
@@ -69,6 +71,19 @@ const postSingleMusic = async (req, res) => {
 		if (!photo) {
 			return res.status(401).json({ error: 'Failed to upload image' });
 		}
+		try {
+			await cloudinary.uploader.explicit(uploadedAudio.public_id, {
+				type: 'upload',
+				overwrite: true,
+				resource_type: 'video', // Use 'video' resource type for audio files in Cloudinary
+				context: `cover_art_url=${photo.secure_url}`,
+			});
+		} catch (error) {
+			console.error('Error updating audio metadata:', error);
+			return res
+				.status(401)
+				.json({ error: 'Failed to update audio metadata' });
+		}
 		// console.log(photo.secure_url);
 
 		const music = await Music.create({
@@ -79,6 +94,7 @@ const postSingleMusic = async (req, res) => {
 			metaDescription,
 			name,
 			songOwner,
+			slug,
 			categ,
 			image: {
 				public_id: photo.public_id,

@@ -7,6 +7,10 @@ const LyricSchema = new Schema(
 			type: String,
 			required: [true, 'title is required'],
 		},
+		slug: {
+			type: String,
+			required: [true, 'slug is required'],
+		},
 		body: {
 			type: String,
 			required: [true, 'body is required'],
