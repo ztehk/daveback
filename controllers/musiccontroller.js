@@ -9,7 +9,6 @@ const getAllMusic = async (req, res) => {
 
 const getOneMusic = async (req, res) => {
 	const { title } = req.params;
-	console.log(title);
 	const regex = new RegExp(title, 'i');
 	const music = await Music.findOne({ slug: regex }).populate(
 		'comments.postedBy',
