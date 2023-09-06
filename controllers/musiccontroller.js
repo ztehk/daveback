@@ -151,7 +151,7 @@ const patchOneMusic = async (req, res) => {
 				{
 					timeout: 240000,
 					resource_type: 'auto',
-					public_id: `${req.name}-${req.songOwner}-Goodvib.net`,
+					public_id: `${req.body.name}-${req.body.songOwner}-Goodvib.net`,
 					folder: 'music',
 				}
 			);
