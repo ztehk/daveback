@@ -117,7 +117,55 @@ const patchOneMusic = async (req, res) => {
 		console.log('error');
 		return res.status(404).json({ error: 'No such music!' });
 	}
-
+	const musik = await Music.findById(id);
+	if (req.body.image !== '') {
+		const imgid = musik.image.public_id;
+		if (imgid) {
+			cloudinary.uploader.destroy(imgid);
+		}
+		try {
+			let photo = await cloudinary.uploader.upload(req.body.image, {
+				folder: 'images',
+				width: 'auto',
+				crop: 'fit',
+			});
+			if (photo) {
+				req.body.image = {
+					public_id: photo.public_id,
+					url: photo.url,
+				};
+			}
+		} catch (error) {
+			console.log(error);
+			return res.status(500).json({ error: 'could not upload image' });
+		}
+	}
+	if (req.body.audio !== '') {
+		const audiioid = musik.audio.public_id;
+		if (audiioid) {
+			cloudinary.uploader.destroy(audiioid);
+		}
+		try {
+			uploadedAudio = await cloudinary.uploader.upload(
+				req.body.audio,
+				{
+					timeout: 240000,
+					resource_type: 'auto',
+					public_id: `${req.name}-${req.songOwner}-Goodvib.net`,
+					folder: 'music',
+				}
+			);
+			if (uploadedAudio) {
+				req.body.audio = {
+					public_id: uploadedAudio.public_id,
+					url: photo.url,
+				};
+			}
+		} catch (error) {
+			console.log(error);
+			return res.status(500).json({ error: 'could not upload image' });
+		}
+	}
 	const music = await Music.findByIdAndUpdate(
 		{ _id: id },
 		{
