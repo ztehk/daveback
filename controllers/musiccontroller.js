@@ -158,7 +158,7 @@ const patchOneMusic = async (req, res) => {
 			if (uploadedAudio) {
 				req.body.audio = {
 					public_id: uploadedAudio.public_id,
-					url: photo.url,
+					url: uploadedAudio.url,
 				};
 			}
 		} catch (error) {
