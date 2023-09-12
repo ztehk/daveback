@@ -37,7 +37,7 @@ const postSingleMusic = async (req, res) => {
 	} = req.body;
 	const name2 = name.replace(/ /g, '-');
 	const owner2 = songOwner.replace(/ /g, '-');
-	const slug = `download-${name2}-by-${owner2}-mp3`;
+	const slug = `${name2}-by-${owner2}`;
 	try {
 		let uploadedAudio;
 		let photo;
