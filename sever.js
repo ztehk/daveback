@@ -10,6 +10,7 @@ const albumRoutes = require('./routes/album');
 const searchroute = require('./routes/search');
 const newsrout = require('./routes/news');
 const newsvideorout = require('./routes/newsvideo');
+const sportroute = require('./routes/sport');
 
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -33,6 +34,7 @@ app.use('/api/album', albumRoutes);
 app.use('/api/gist', newsrout);
 app.use('/api/search', searchroute);
 app.use('/api/newsvideo', newsvideorout);
+app.use('/api/sport', sportroute);
 
 mongoose
 	.connect(process.env.MONGO_URI)
