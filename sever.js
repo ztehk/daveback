@@ -11,6 +11,7 @@ const searchroute = require('./routes/search');
 const newsrout = require('./routes/news');
 const newsvideorout = require('./routes/newsvideo');
 const sportroute = require('./routes/sport');
+const album2 = require('./routes/album2');
 
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -30,11 +31,12 @@ app.use((req, res, next) => {
 app.use('/api/user', userRoutes);
 app.use('/api/lyrics', lyricsRoutes);
 app.use('/api/music', musicRoutes);
-app.use('/api/album', albumRoutes);
+app.use('/api/gospel', albumRoutes);
 app.use('/api/gist', newsrout);
 app.use('/api/search', searchroute);
 app.use('/api/newsvideo', newsvideorout);
 app.use('/api/sport', sportroute);
+app.use('/api/album', album2);
 
 mongoose
 	.connect(process.env.MONGO_URI)

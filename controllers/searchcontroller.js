@@ -4,6 +4,7 @@ const Lyric = require('../models/LyricsModel');
 const Album = require('../models/albummodel');
 const News = require('../models/newsmodel');
 const Sport = require('../models/sportmodel');
+const Album2 = require('../models/album2model');
 
 const searchfun = async (req, res) => {
 	const { query } = req.query;
@@ -27,6 +28,7 @@ async function search(query) {
 	const GospelResults = await Album.find({ title: searchRegex }).exec();
 	const NewsResults = await News.find({ title: searchRegex }).exec();
 	const SportResults = await Sport.find({ title: searchRegex }).exec();
+	const Album2Results = await Album2.find({ title: searchRegex }).exec();
 
 	const combinedResults = [
 		...musicResults,
@@ -34,6 +36,7 @@ async function search(query) {
 		...lyricsResults,
 		...NewsResults,
 		...SportResults,
+		...Album2Results,
 	];
 
 	return combinedResults;
