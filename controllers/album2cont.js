@@ -57,11 +57,11 @@ const postSingleMusic = async (req, res) => {
 				.putObject({
 					Body: audio,
 					Bucket: 'goodvib',
-					Key: `${name}.zip`,
+					Key: `${name}|${songOwner}.zip`,
 				})
 				.promise()
 				.then(() => {
-					uploadedAudiourl = `https://goodvib.s3.eu-north-1.amazonaws.com/${name}.zip`;
+					uploadedAudiourl = `https://goodvib.s3.eu-north-1.amazonaws.com/${name}|${songOwner}.zip`;
 					console.log(uploadedAudiourl);
 				})
 				.catch(error => {
