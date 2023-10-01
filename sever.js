@@ -1,5 +1,11 @@
 const express = require('express');
 const compression = require('compression');
+const { updateAlbums } = require('./controllers/album2cont');
+const { updateGospel } = require('./controllers/albumcontroller');
+const { updateLyrics } = require('./controllers/lyricscontroller');
+const { updateMusic } = require('./controllers/musiccontroller');
+const { updateNews } = require('./controllers/newscontroller');
+const { updateSport } = require('./controllers/sportcontroller');
 const app = express();
 
 app.use(compression());
@@ -17,6 +23,18 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
 const bodyParser = require('body-parser');
+
+// server.js
+
+// Schedule the task every 10 hours
+setInterval(() => {
+	updateAlbums();
+	updateGospel();
+	updateLyrics();
+	updateMusic();
+	updateNews();
+	updateSport();
+}, 60 * 1000); // 10 hours in milliseconds
 
 app.use(bodyParser.json({ limit: '200mb' }));
 app.use(bodyParser.urlencoded({ limit: '200mb', extended: true }));

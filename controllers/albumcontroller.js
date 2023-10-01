@@ -2,6 +2,14 @@ const cloudinary = require('../utils/cloudinary');
 const mongoose = require('mongoose');
 const Album = require('../models/albummodel');
 
+async function updateGospel() {
+	try {
+		const currentDate = new Date();
+		await Album.updateMany({}, { $set: { updatedAt: currentDate } });
+	} catch (error) {
+		console.error('Error updating updatedAt:', error);
+	}
+}
 const getAllAlbum = async (req, res) => {
 	const album = await Album.find({}).sort({ createdAt: -1 });
 	res.status(200).json(album);
@@ -176,4 +184,5 @@ module.exports = {
 	patchOneAlbum,
 	deleteOneAlbum,
 	addComent,
+	updateGospel,
 };

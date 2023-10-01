@@ -4,6 +4,15 @@ const cloudinary = require('../utils/cloudinary');
 const mongoose = require('mongoose');
 const News = require('../models/newsmodel');
 
+async function updateNews() {
+	try {
+		const currentDate = new Date();
+		await News.updateMany({}, { $set: { updatedAt: currentDate } });
+	} catch (error) {
+		console.error('Error updating updatedAt:', error);
+	}
+}
+
 const getAllNews = async (req, res) => {
 	const news = await News.find({}).sort({ createdAt: -1 });
 	res.status(200).json(news);
@@ -60,56 +69,7 @@ const postSinglenews = async (req, res) => {
 					.status(401)
 					.json({ error: 'Failed to upload video' });
 			}
-			// try {
-			// 	const SCOPES = ['https://www.googleapis.com/auth/drive'];
-			// 	const auth = new google.auth.GoogleAuth({
-			// 		credentials: require('../credentials.json'), // Load your credentials
-			// 		scopes: SCOPES,
-			// 	});
-
-			// 	const drive = google.drive({ version: 'v3', auth });
-
-			// 	// Upload video to Google Drive
-			// 	const fileMetadata = {
-			// 		name: `${title}.MP4`, // Adjust the name of the file
-			// 		parents: ['1GSJZKyeVOnRpQyZM1LrvNuSavpOrhBZQ'],
-			// 	};
-
-			// 	const media = {
-			// 		mimeType: 'video/mp4', // Adjust the MIME type if necessary
-			// 		body: video, // Assuming you're sending the video as a URL or base64 data
-			// 	};
-
-			// 	uploadedFile = await drive.files.create({
-			// 		resource: fileMetadata,
-			// 		media: media,
-			// 		fields: 'id',
-			// 	});
-			// 	try {
-			// 		const fieldId = uploadedFile.data.id;
-			// 		await drive.permissions.create({
-			// 			fileId: fieldId,
-			// 			requestBody: {
-			// 				role: 'reader',
-			// 				type: 'anyone',
-			// 			},
-			// 		});
-			// 		result = await drive.files.get({
-			// 			fileId: fieldId,
-			// 			fields: 'webViewLink',
-			// 		});
-			// 		console.log(result.data.webViewLink);
-			// 	} catch (error) {
-			// 		console.log(error);
-			// 	}
-			// } catch (error) {
-			// 	console.log(error);
-			// }
 		}
-
-		// Now, uploadedFile.data.id contains the Google Drive file ID
-
-		// Create a new News entry in your MongoDB with the uploadedFile.data.id
 
 		try {
 			photo = await cloudinary.uploader.upload(image, {
@@ -211,4 +171,5 @@ module.exports = {
 	getOneNews,
 	deleteOneNews,
 	addComent,
+	updateNews,
 };

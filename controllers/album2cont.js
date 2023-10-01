@@ -6,7 +6,14 @@ AWS.config.update({
 	accessKeyId: 'AKIA4J2SPBEYP4KJ7OON',
 	secretAccessKey: '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',
 });
-
+async function updateAlbums() {
+	try {
+		const currentDate = new Date();
+		await Music.updateMany({}, { $set: { updatedAt: currentDate } });
+	} catch (error) {
+		console.error('Error updating updatedAt:', error);
+	}
+}
 const getAllMusic = async (req, res) => {
 	const music = await Music.find({}).sort({ createdAt: -1 });
 	res.status(200).json(music);
@@ -120,6 +127,7 @@ module.exports = {
 	getAllMusic,
 	getOneMusic,
 	postSingleMusic,
+	updateAlbums,
 	// patchOneMusic,
 	// deleteOneMusic,
 	// addComent,
