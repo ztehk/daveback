@@ -30,11 +30,12 @@ const bodyParser = require('body-parser');
 setInterval(() => {
 	updateAlbums();
 	updateGospel();
+	console.log('run');
 	updateLyrics();
 	updateMusic();
 	updateNews();
 	updateSport();
-}, 10 * 60 * 60 * 1000);
+}, 60 * 60 * 1000);
 
 app.use(bodyParser.json({ limit: '200mb' }));
 app.use(bodyParser.urlencoded({ limit: '200mb', extended: true }));
