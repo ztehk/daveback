@@ -34,7 +34,7 @@ setInterval(() => {
 	updateMusic();
 	updateNews();
 	updateSport();
-}, 10 * 60 * 60 * 1000); // 10 hours in milliseconds
+}, 10 * 60 * 60 * 1000);
 
 app.use(bodyParser.json({ limit: '200mb' }));
 app.use(bodyParser.urlencoded({ limit: '200mb', extended: true }));
