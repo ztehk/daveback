@@ -1,4 +1,5 @@
 const express = require('express');
+const cron = require('node-cron');
 const compression = require('compression');
 const { updateAlbums } = require('./controllers/album2cont');
 const { updateGospel } = require('./controllers/albumcontroller');
@@ -24,18 +25,18 @@ const cors = require('cors');
 require('dotenv').config();
 const bodyParser = require('body-parser');
 
-// server.js
-
-// Schedule the task every 10 hours
-setInterval(() => {
-	updateAlbums();
-	updateGospel();
-	console.log('run');
-	updateLyrics();
-	updateMusic();
-	updateNews();
-	updateSport();
-}, 60 * 60 * 1000);
+cron.schedule('0 */5 * * *', async () => {
+	try {
+		updateAlbums();
+		updateGospel();
+		updateLyrics();
+		updateMusic();
+		updateNews();
+		updateSport();
+	} catch (error) {
+		console.error('Error updating documents:', error);
+	}
+});
 
 app.use(bodyParser.json({ limit: '200mb' }));
 app.use(bodyParser.urlencoded({ limit: '200mb', extended: true }));
