@@ -31,12 +31,12 @@ async function search(query) {
 	const Album2Results = await Album2.find({ title: searchRegex }).exec();
 
 	const combinedResults = [
-		...musicResults,
+		...SportResults,
 		...GospelResults,
 		...lyricsResults,
-		...NewsResults,
-		...SportResults,
+		...lyricsResults,
 		...Album2Results,
+		...musicResults,
 	];
  	
 	return combinedResults.reverse();;
