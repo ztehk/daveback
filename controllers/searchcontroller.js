@@ -38,7 +38,7 @@ async function search(query) {
 		...SportResults,
 		...Album2Results,
 	];
-
+ 	combinedResults.reverse();
 	return combinedResults;
 }
 module.exports = {
