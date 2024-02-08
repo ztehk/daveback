@@ -24,13 +24,13 @@ async function search(query) {
     const searchRegex = new RegExp(regexQuery, 'i');
 
     // Search in Music collection based on title or artist
-    const musicResults = await Music.find({ $or: [{ songOwner: searchRegex }, { title: searchRegex }] }).exec();
+    const musicResults = await Music.find({ $or: [{ title: searchRegex }, { songOwner: searchRegex }] }).exec();
 
     // Search in Lyric collection based on title or artist
-    const lyricsResults = await Lyric.find({ $or: [{ songOwner: searchRegex }, { title: searchRegex }] }).exec();
+    const lyricsResults = await Lyric.find({ $or: [{ title: searchRegex }, { songOwner: searchRegex }] }).exec();
 
     // Search in Album collection based on title or artist
-    const gospelResults = await Album.find({ $or: [{ songOwner: searchRegex }, { title: searchRegex }] }).exec();
+    const gospelResults = await Album.find({ $or: [{ title: searchRegex }, { songOwner: searchRegex }] }).exec();
 
     // Search in News collection based on title
     const newsResults = await News.find({ title: searchRegex }).exec();
