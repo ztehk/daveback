@@ -27,13 +27,13 @@ async function search(query) {
     const searchRegex = new RegExp(regexQuery, 'i');
 
     // Search in Music collection based on title or songOwner (with "ft" filtered out)
-    const musicResults = await Music.find({ $or: [{ title: searchRegex }, { songOwner: { $regex: searchRegex, $options: 'i' } }] }).exec();
+    const musicResults = await Music.find({ $or: [{ title: searchRegex }, { songOwner: searchRegex }] }).exec();
 
     // Search in Lyric collection based on title or songOwner (with "ft" filtered out)
-    const lyricsResults = await Lyric.find({ $or: [{ title: searchRegex }, { songOwner: { $regex: searchRegex, $options: 'i' } }] }).exec();
+    const lyricsResults = await Lyric.find({ $or: [{ title: searchRegex }, { songOwner: searchRegex }] }).exec();
 
     // Search in Album collection based on title or songOwner (with "ft" filtered out)
-    const gospelResults = await Album.find({ $or: [{ title: searchRegex }, { songOwner: { $regex: searchRegex, $options: 'i' } }] }).exec();
+    const gospelResults = await Album.find({ $or: [{ title: searchRegex }, { songOwner: searchRegex }] }).exec();
 
     // Search in News collection based on title
     const newsResults = await News.find({ title: searchRegex }).exec();
@@ -56,6 +56,7 @@ async function search(query) {
 
     return combinedResults.reverse();
 }
+
 
 module.exports = {
 	searchfun,
