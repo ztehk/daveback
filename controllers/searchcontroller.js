@@ -17,20 +17,23 @@ const searchfun = async (req, res) => {
 };
 
 async function search(query) {
-    const regexQuery = query
+    // Replace "ft" with an empty string in the query
+    const sanitizedQuery = query.replace(/\bft\b/gi, '');
+
+    const regexQuery = sanitizedQuery
         .split(' ')
         .map(word => `.*${word}.*`)
         .join('|');
     const searchRegex = new RegExp(regexQuery, 'i');
 
-    // Search in Music collection based on title or artist
-    const musicResults = await Music.find({ $or: [{ title: searchRegex }, { songOwner: searchRegex }] }).exec();
+    // Search in Music collection based on title or songOwner (with "ft" filtered out)
+    const musicResults = await Music.find({ $or: [{ title: searchRegex }, { songOwner: { $regex: searchRegex, $options: 'i' } }] }).exec();
 
-    // Search in Lyric collection based on title or artist
-    const lyricsResults = await Lyric.find({ $or: [{ title: searchRegex }, { songOwner: searchRegex }] }).exec();
+    // Search in Lyric collection based on title or songOwner (with "ft" filtered out)
+    const lyricsResults = await Lyric.find({ $or: [{ title: searchRegex }, { songOwner: { $regex: searchRegex, $options: 'i' } }] }).exec();
 
-    // Search in Album collection based on title or artist
-    const gospelResults = await Album.find({ $or: [{ title: searchRegex }, { songOwner: searchRegex }] }).exec();
+    // Search in Album collection based on title or songOwner (with "ft" filtered out)
+    const gospelResults = await Album.find({ $or: [{ title: searchRegex }, { songOwner: { $regex: searchRegex, $options: 'i' } }] }).exec();
 
     // Search in News collection based on title
     const newsResults = await News.find({ title: searchRegex }).exec();
