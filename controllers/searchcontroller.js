@@ -48,8 +48,8 @@ async function search(query) {
     const combinedResults = [
         ...sportResults,
         ...gospelResults,
-        ...lyricsResults,
         ...newsResults,
+        ...lyricsResults,
         ...album2Results,
         ...musicResults,
     ];
