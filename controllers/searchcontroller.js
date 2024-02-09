@@ -24,6 +24,14 @@ async function search(query) {
 
     const searchRegexes = searchWords.map(word => new RegExp(`.*${word}.*`, 'i'));
 
+    // Define different combinations of search terms
+    const combinations = [];
+    for (let i = 0; i < searchWords.length; i++) {
+        for (let j = i + 1; j <= searchWords.length; j++) {
+            combinations.push(searchWords.slice(i, j).join(' '));
+        }
+    }
+
     // Search in Music collection based on title or songOwner (with "ft" filtered out)
     const musicResults = await Music.find({
         $or: [
@@ -67,8 +75,12 @@ async function search(query) {
         ...musicResults,
     ];
 
-    return combinedResults.reverse();
+    // Filter out duplicates
+    const uniqueResults = Array.from(new Set(combinedResults.map(result => result._id))).map(_id => combinedResults.find(result => result._id === _id));
+
+    return uniqueResults.reverse();
 }
+
 
 
 
