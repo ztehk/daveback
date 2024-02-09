@@ -27,35 +27,35 @@ async function search(query) {
     // Search in Music collection based on title or songOwner (with "ft" filtered out)
     const musicResults = await Music.find({
         $or: [
-            { title: { $all: searchRegexes } },
-            { songOwner: { $all: searchRegexes } }
+            { title:  searchRegexes  },
+            { songOwner: searchRegexes  }
         ]
     }).exec();
 
     // Search in Lyric collection based on title or songOwner (with "ft" filtered out)
     const lyricsResults = await Lyric.find({
         $or: [
-            { title: { $all: searchRegexes } },
-            { songOwner: { $all: searchRegexes } }
+            { title:  searchRegexes },
+            { songOwner:  searchRegexes  }
         ]
     }).exec();
 
     // Search in Album collection based on title or songOwner (with "ft" filtered out)
     const gospelResults = await Album.find({
         $or: [
-            { title: { $all: searchRegexes } },
-            { songOwner: { $all: searchRegexes } }
+            { title:  searchRegexes  },
+            { songOwner:  searchRegexes } 
         ]
     }).exec();
 
     // Search in News collection based on title
-    const newsResults = await News.find({ title: { $all: searchRegexes } }).exec();
+    const newsResults = await News.find({ title:  searchRegexes  }).exec();
 
     // Search in Sport collection based on title
-    const sportResults = await Sport.find({ title: { $all: searchRegexes } }).exec();
+    const sportResults = await Sport.find({ title:  searchRegexes  }).exec();
 
     // Search in Album2 collection based on title
-    const album2Results = await Album2.find({ title: { $all: searchRegexes } }).exec();
+    const album2Results = await Album2.find({ title:  searchRegexes  }).exec();
 
     // Combine the results from all collections
     const combinedResults = [
