@@ -20,8 +20,7 @@ async function search(query) {
     // Replace "ft" with an empty string in the query
     const sanitizedQuery = query.replace(/\bft\b/gi, '');
 
-    const searchWords = sanitizedQuery.split(' ');
-
+    const searchWords = sanitizedQuery.split(' ').filter(item => item !== '');
     const searchRegexes = searchWords.map(word => new RegExp(`.*${word}.*`, 'i'));
 
     // Search in Music collection based on title or songOwner (with "ft" filtered out)
