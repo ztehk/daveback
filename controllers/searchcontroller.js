@@ -62,8 +62,8 @@ async function search(query) {
         ...gospelResults,
         ...newsResults,
         ...lyricsResults,
-        ...album2Results,
         ...musicResults,
+        ...album2Results,
     ];
 
     return combinedResults.reverse();
