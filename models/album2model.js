@@ -63,6 +63,10 @@ const Album2Schema = new Schema(
 				},
 			},
 		],
+		hasnude:{
+			type:Bolean,
+			default:false,
+		}
 	},
 	{ timestamps: true }
 );
