@@ -36,11 +36,7 @@ const NewsSchema = new Schema(
       type: String,
       required: [true, "category is required"],
     },
-    songOwner: {
-      type: String,
-      required: [true, "Artist name is required"],
-    },
-    audio: {
+    video: {
       url: String,
       public_id: String,
       // required: [true, 'image is required'],
@@ -65,4 +61,4 @@ const NewsSchema = new Schema(
 );
 
 // const BlogPost = mongoose.model('Post')
-module.exports = mongoose.model("Music", NewsSchema);
+module.exports = mongoose.model("Gist", NewsSchema);

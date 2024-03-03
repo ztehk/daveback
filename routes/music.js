@@ -1,22 +1,22 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
 const {
-	getAllMusic,
-	getOneMusic,
-	postSingleMusic,
-	patchOneMusic,
-	deleteOneMusic,
-	addComent,
-} = require('../controllers/musiccontroller');
+  getAllMusic,
+  getOneMusic,
+  postoneMusic,
+  patchonemusic,
+  deleteMusic,
+  addComent,
+} = require("../controllers/musiccont");
 
-const { auth: isAuthenticated, isAdmin } = require('../middleware/auth');
+const { auth: isAuthenticated, isAdmin } = require("../middleware/auth");
 
-router.get('/', getAllMusic);
-router.get('/:title', getOneMusic);
-router.post('/create', isAdmin, postSingleMusic);
-router.patch('/update/:id', isAdmin, patchOneMusic);
-router.delete('/delete/:id', isAdmin, deleteOneMusic);
-router.post('/comment/post/:id', isAuthenticated, addComent);
+router.get("/", getAllMusic);
+router.get("/:title", getOneMusic);
+router.post("/create", isAdmin, postoneMusic);
+router.patch("/update/:id", isAdmin, patchonemusic);
+router.delete("/delete/:id", isAdmin, deleteMusic);
+router.post("/comment/post/:id", isAuthenticated, addComent);
 
 module.exports = router;
